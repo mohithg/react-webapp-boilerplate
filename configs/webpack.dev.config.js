@@ -6,11 +6,15 @@ const WebpackChunkHash = require("webpack-chunk-hash");
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
 const config = {
-  entry: {
-    app: './app/app.js',
-  },
+  entry: [
+    'eventsource-polyfill', // Necessary for hot reloading with IE
+    'webpack-hot-middleware/client',
+    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+    './app/app.js'
+  ],
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.join(__dirname, '..', 'dist'),
+    publicPath: '/',
     filename: '[name].[hash].js',
   },
   devtool: 'cheap-module-source-map',
@@ -67,8 +71,10 @@ const config = {
     }),
     new InlineManifestWebpackPlugin({
       name: 'webpackManifest'
-    })
-  ]
+    }),
+    new webpack.HotModuleReplacementPlugin() // For HMR
+  ],
+  target: 'web' // For HMR
 };
 
 module.exports = config;

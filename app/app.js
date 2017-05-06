@@ -13,3 +13,8 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+// HMR
+if (module.hot) {
+  module.hot.accept();
+}

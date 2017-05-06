@@ -36,6 +36,9 @@
   },
   "devDependencies": {
     "css-loader": "^0.28.1",
-    "style-loader": "^0.17.0"
+    "eventsource-polyfill": "^0.9.6",
+    "style-loader": "^0.17.0",
+    "webpack-dev-middleware": "^1.10.2",
+    "webpack-hot-middleware": "^2.18.0"
   }
 }
