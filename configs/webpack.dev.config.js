@@ -7,8 +7,7 @@ const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const extractSass = new ExtractTextPlugin({
-  filename: "[name].[contenthash].css",
-  disable: process.env.NODE_ENV === "development"
+  filename: "[name].[contenthash].css"
 });
 
 const config = {
@@ -31,7 +30,6 @@ const config = {
         use: extractSass.extract({
           use: [{
             loader: "css-loader",
-            options: { modules: true, importLoaders: 1 }
           }, {
             loader: "sass-loader"
           }, {
@@ -45,8 +43,6 @@ const config = {
               }
             }
           }],
-          // use style-loader in development
-          fallback: "style-loader"
         })
       }
     ],
