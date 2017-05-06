@@ -4,11 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ChunkManifestPlugin = require("chunk-manifest-webpack-plugin");
 const WebpackChunkHash = require("webpack-chunk-hash");
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
-const extractSass = new ExtractTextPlugin({
-  filename: "[name].[contenthash].css"
-});
 
 const config = {
   entry: {
@@ -27,8 +22,10 @@ const config = {
       },
       {
         test: /\.scss$/,
-        use: extractSass.extract({
-          use: [{
+        use: [{
+          loader: "style-loader" // creates style nodes from JS strings
+        },
+          {
             loader: "css-loader",
           }, {
             loader: "sass-loader"
@@ -43,7 +40,6 @@ const config = {
               }
             }
           }],
-        })
       }
     ],
   },
@@ -71,8 +67,7 @@ const config = {
     }),
     new InlineManifestWebpackPlugin({
       name: 'webpackManifest'
-    }),
-    extractSass
+    })
   ]
 };
 
