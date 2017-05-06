@@ -9,7 +9,7 @@ const app = express();
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-app.use('/', express.static('public'));
+app.use('/', express.static(path.resolve(process.cwd(), 'public')));
 
 if (!isProduction) {
   const config = require('../configs/webpack.dev.config.js');

@@ -14,7 +14,7 @@ const config = {
         use: 'babel-loader'
       },
       {
-        test: /\.scss$/,
+        test: /\.(css|scss)$/,
         use: [{
           loader: "style-loader" // creates style nodes from JS strings
         },
@@ -32,7 +32,38 @@ const config = {
               ];
             }
           }
-        }],
+        }]
+      },
+      {
+        test: /\.(eot|svg|ttf|otf|woff|woff2)$/,
+        use: [{
+          loader: 'file-loader',
+          query: {
+            useRelativePath: process.env.NODE_ENV === "production"
+          }
+        }]
+      },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        loaders: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            query: {
+              progressive: true,
+              optimizationLevel: 7,
+              interlaced: false,
+              pngquant: {
+                quality: '65-90',
+                speed: 4
+              }
+            }
+          }
+        ]
+      },
+      {
+        test: /\.json$/,
+        use: 'json-loader',
       }
     ],
   },
