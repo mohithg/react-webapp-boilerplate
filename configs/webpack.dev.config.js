@@ -4,6 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ChunkManifestPlugin = require("chunk-manifest-webpack-plugin");
 const WebpackChunkHash = require("webpack-chunk-hash");
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+const extractSass = new ExtractTextPlugin({
+  filename: "[name].[contenthash].css",
+  disable: process.env.NODE_ENV === "development"
+});
 
 const config = {
   entry: {
@@ -15,7 +21,33 @@ const config = {
   },
   module: {
     rules: [
-      { test: /\.(js|jsx)$/, use: 'babel-loader' }
+      {
+        test: /\.(js|jsx)$/,
+        use: 'babel-loader'
+      },
+      {
+        test: /\.scss$/,
+        use: extractSass.extract({
+          use: [{
+            loader: "css-loader",
+            options: { modules: true, importLoaders: 1 }
+          }, {
+            loader: "sass-loader"
+          }, {
+              loader: 'postcss-loader',
+              options: {
+                plugins: function () {
+                  return [
+                    require('precss'),
+                    require('autoprefixer')
+                  ];
+                }
+              }
+          }],
+          // use style-loader in development
+          fallback: "style-loader"
+        })
+      }
     ],
   },
   plugins: [
@@ -42,7 +74,8 @@ const config = {
     }),
     new InlineManifestWebpackPlugin({
       name: 'webpackManifest'
-    })
+    }),
+    extractSass
   ]
 };
 
