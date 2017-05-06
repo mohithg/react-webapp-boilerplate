@@ -7,6 +7,5 @@
     [
       "transform-react-jsx"
     ]
-    // "react-hot-loader/babel"
   ]
 }
