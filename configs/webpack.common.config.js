@@ -61,7 +61,11 @@ const config = {
     new InlineManifestWebpackPlugin({
       name: 'webpackManifest'
     }),
-    new ProgressBarPlugin()
+    new ProgressBarPlugin(),
+    // Require plugin so we need not import react like dependencies in all files
+    new webpack.ProvidePlugin({
+      'React': 'react',
+    })
   ],
   stats: {
     maxModules: 0
