@@ -33,7 +33,7 @@ const config = {
           }, {
             loader: "sass-loader"
           }, {
-              loader: 'postcss-loader',
+            loader: 'postcss-loader',
             options: {
               plugins: function () {
                 return [
@@ -72,7 +72,23 @@ const config = {
     new InlineManifestWebpackPlugin({
       name: 'webpackManifest'
     }),
-    extractSass
+    extractSass,
+    // From here production starts
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      beautify: false,
+      mangle: {
+        screw_ie8: true,
+        keep_fnames: true
+      },
+      compress: {
+        screw_ie8: true
+      },
+      comments: false
+    })
   ]
 };
 

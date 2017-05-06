@@ -19,6 +19,7 @@ const config = {
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].[hash].js',
   },
+  devtool: 'cheap-module-source-map',
   module: {
     rules: [
       {
@@ -34,15 +35,15 @@ const config = {
           }, {
             loader: "sass-loader"
           }, {
-              loader: 'postcss-loader',
-              options: {
-                plugins: function () {
-                  return [
-                    require('precss'),
-                    require('autoprefixer')
-                  ];
-                }
+            loader: 'postcss-loader',
+            options: {
+              plugins: function () {
+                return [
+                  require('precss'),
+                  require('autoprefixer')
+                ];
               }
+            }
           }],
           // use style-loader in development
           fallback: "style-loader"
