@@ -18,10 +18,7 @@ if (!isProduction) {
     publicPath: config.output.publicPath,
     silent: true,
     noInfo: true,
-    stats: {
-      'errors-only': true,
-      color: true,
-    },
+    stats: 'errors-only',
     hot: true,
     historyApiFallback: true,
   });

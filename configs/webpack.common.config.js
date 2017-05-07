@@ -51,8 +51,12 @@ const config = {
             loader: 'image-webpack-loader',
             query: {
               progressive: true,
-              optimizationLevel: 7,
-              interlaced: false,
+              gifsicle: {
+                interlaced: true,
+              },
+              optipng: {
+                optimizationLevel: 4,
+              },
               pngquant: {
                 quality: '65-90',
                 speed: 4
