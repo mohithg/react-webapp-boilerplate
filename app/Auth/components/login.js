@@ -8,7 +8,7 @@ const image = require('../../../public/assets/image.jpg');
 class Login extends React.Component {
 
   onSubmit(values) {
-    console.log(values);
+    console.log(values); // eslint-disable-line
   }
 
   render() {

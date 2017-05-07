@@ -12,8 +12,13 @@ class Form extends React.Component {
   }
 }
 
+Form.defaultProps = {
+  onSubmit: () => { },
+};
+
 Form.propTypes = {
   children: PropTypes.node.isRequired,
+  onSubmit: PropTypes.func,
 };
 
 export default Form;
