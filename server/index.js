@@ -9,35 +9,50 @@ const app = express();
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-app.use('/', express.static(path.resolve(process.cwd(), 'public')));
+app.use('/assets', express.static(path.resolve(process.cwd(), 'public')));
 
 if (!isProduction) {
   const config = require('../configs/webpack.dev.config.js');
   const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, {
+  const devMiddleWare = webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,
-    stats: { colors: true },
     silent: true,
     noInfo: true,
-    stats: 'errors-only',
+    stats: {
+      'errors-only': true,
+      color: true,
+    },
     hot: true,
     historyApiFallback: true,
-  }));
+  });
+
+  app.use(devMiddleWare);
 
   app.use(webpackHotMiddleware(compiler, {
     log: console.log,
     path: '/__webpack_hmr',
     heartbeat: 10 * 1000,
   }));
+  const fs = devMiddleWare.fileSystem;
+  // Send the new index.html file everytime and react-router takes care of routing
+  app.get('*', function (req, res) {
+    fs.readFile(path.resolve(__dirname, '..', 'dist', 'index.html'), (err, file) => {
+      if (err) {
+        res.sendStatus(404);
+      } else {
+        res.send(file.toString());
+      }
+    });
+  });
 } else {
   const build = path.resolve(process.cwd(), 'dist');
   app.use(compression());
   app.use('/', express.static(build));
   app.get('*', function (req, res) {
-    res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+    res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
   });
 }
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log('Started at 3000')
+  console.log('Started at 3000');
 });

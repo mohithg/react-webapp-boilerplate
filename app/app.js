@@ -1,15 +1,10 @@
 import ReactDOM from 'react-dom';
+import Routes from './routes';
 import './styles.scss';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="heading">
-        Hello World
-      </div>
-    )
-  }
-}
+const App = () => (
+  <Routes />
+);
 
 ReactDOM.render(<App />, document.getElementById('app'));
 
