@@ -6,10 +6,13 @@ React boilerplate for production level apps
 - Performs all minifcation for production use
 - Uses express server to serve
 - Uses common chunks module for both vendor and app files and seperates vendor and app files
+- Formsy Form support
+- React-router is setup
+- Eslint for styles is setup
 
 # Commands
 ## Install
--Perform npm install 
+- Perform npm install
 `npm install`
 
 ## Dev Mode
