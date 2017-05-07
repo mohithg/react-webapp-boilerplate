@@ -11,7 +11,7 @@ Root.defaultProps = {
 };
 
 Root.propTypes = {
-  children: React.PropTypes.node,
+  children: PropTypes.node,
 };
 
 export default Root;

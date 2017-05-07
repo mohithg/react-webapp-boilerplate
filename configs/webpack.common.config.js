@@ -100,6 +100,7 @@ const config = {
     // Require plugin so we need not import react like dependencies in all files
     new webpack.ProvidePlugin({
       'React': 'react',
+      'PropTypes': 'prop-types',
       '_': 'lodash',
     })
   ],
