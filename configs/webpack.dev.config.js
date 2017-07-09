@@ -5,6 +5,7 @@ const webpack = require('webpack');
 
 const config = Merge(CommonConfig, {
   entry: [
+    'babel-polyfill',
     'eventsource-polyfill', // Necessary for hot reloading with IE
     'webpack-hot-middleware/client',
     'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
